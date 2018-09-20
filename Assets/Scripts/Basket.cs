@@ -1,10 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Basket : MonoBehaviour {
-	// Update is called once per frame
-	void Update () 
+    [Header("Set Dynamically")]
+    public Text scoreGT;
+
+    void Start()
+    {
+        GameObject scoreGO = GameObject.Find("ScoreCounter");
+        scoreGT = scoreGO.GetComponent<Text>();
+        scoreGT.text = "0";
+    }
+
+    // Update is called once per frame
+    void Update () 
     {
         //getting the current mouse position
         Vector3 mousePos2D = Input.mousePosition;
@@ -23,6 +34,10 @@ public class Basket : MonoBehaviour {
         if (collideWith.tag == "Apple")
         {
             Destroy(collideWith);
+
+            int score = int.Parse(scoreGT.text);
+            score += 100;
+            scoreGT.text = score.ToString();
         }
     }
 }
